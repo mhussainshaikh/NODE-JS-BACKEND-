@@ -1,4 +1,4 @@
- //this is the real world example of backend api ///
+//  this is the real world example of backend api ///
 
 // import dotenv from 'dotenv';
 // dotenv.config({ path: '../.env' }); 
@@ -66,10 +66,9 @@
 //   console.log(`Server is running on http://localhost:${port}`);
 // });
 
-//this is the simple backend api ///
+// // this is the simple backend api ///
 
-// import dotenv from 'dotenv'
-// dotenv.config({ path: '../.env' }); 
+// import dotenv from 'dotenv' 
 // import express from 'express'
 
 // const app = express()
@@ -83,7 +82,7 @@
 //   console.log(`Example app listening on http://localhost:${port}`)
 // })
 
-// we use async await  and fetch when backend api get data from external api (third party api)  or database //
+// // we use async await  and fetch when backend api get data from external api (third party api)  or database //
 
 // import express from "express";
 // import dotenv from 'dotenv';
@@ -121,13 +120,13 @@
 // });
 
 
-////  frontend example // Same example with async/await//
+// //  frontend example // Same example with async/await//
 
 // const getData=async function () {
 //     try {
 //       const url='https://randomuser.me/api'
 //       const response = await fetch(url);
-//   Check if the response is successful// 
+//   //Check if the response is successful// 
   
 //   if (!response.ok) {
 //     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -141,8 +140,9 @@
 
 //   getData(); //
 
-// just like backend make the api and frontend just req and get the url example https:localhost:3000/api/data to get the dat of /data from backend api //
+// //just like backend make the api and frontend just req and get the url example https:localhost:3000/api/data to get the data of /data from backend api //
 
 // similarly in third party api backend api will get the data from third party api and send it to frontend //
 
 // we use fetch and async await in backend api to get data from  third part api similarly to frontend ///
+
