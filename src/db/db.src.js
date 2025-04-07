@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { DATABASE_NAME } from "../constant.js";
+
+
 export const databaseconnection = async () => {
   try {
     // Check if MONGODB_URI is defined
@@ -8,16 +10,12 @@ export const databaseconnection = async () => {
         "MONGODB_URI is not defined in the environment variables."
       );
     }
-
     // Connect to the database
-    const connectionInstance = await mongoose.connect(
-      `${process.env.MONGODB_URI}/${DATABASE_NAME}`
-    );
-
+    const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DATABASE_NAME}`);
+    
+    console.log(`Database connected successfully !! DB HOST: ${connectionInstance.connection.host}` );
     // Log success message
-    console.log(
-      `Database connected successfully !! DB HOST: ${connectionInstance.connection.host}`
-    );
+
   } catch (error) {
     // Log error and exit process
     console.error("Error: Cannot connect to the database. Try again!", error);
