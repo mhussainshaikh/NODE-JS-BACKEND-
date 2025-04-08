@@ -1,14 +1,24 @@
-export const asyncHandler = (handler) => {
-  return async (req, res, next) => {
+// this is try catch method ///
+export const asyncHandler = (fn) => {
+ return  async (req, res, next) => {
     try {
-      await handler(req, res, next);
-    } catch (error) {
-      res.status(500).json({ 
+      await fn(req, res, next);
+    } catch (err) {
+      res.status(err.code || 500).json({
         success: false,
-        message: error.message || "Internal Server Error",
+        message: err.message,
       });
-      // Or still use `next(error)` if you have a central error handler
     }
   };
 };
-// this is a middleware function that will handle any errors that occur during the execution of the request handler.
+
+
+// this is .then and catch metrhod ///
+
+// const asyncHandler=(requestHandler)=>{
+// (req,res,next)=>{
+// Promise.resolve(requestHandler(req,res,next))
+// .catch((err)=>next(err))
+// }
+// }
+

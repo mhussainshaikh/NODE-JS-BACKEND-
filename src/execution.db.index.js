@@ -15,13 +15,12 @@ import { app } from "./app.js";
 
 // Connect to the database
 databaseconnection() 
-  .then(() => {
-    // Start the server on the specified port
-    app.listen(port, () => {
-      console.log(`Server is running on port http://localhost:${port}`);
-    });
-  })
-  .catch((err) => {
-    // Log an error if the database connection fails
-    console.log(`Error connecting to the database: ${err}`);
+.then(() => {
+  // Start the server on the specified port
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
   });
+})
+.catch((error) => {
+  console.error("Error connecting to the database:", error);
+})

@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 import { DATABASE_NAME } from "../constant.js";
 
