@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { DATABASE_NAME } from "../constant.js";
 
 
-export const databaseconnection = async () => {
+ const databaseconnection = async () => {
   try {
     // Check if MONGODB_URI is defined
     if (!process.env.MONGODB_URI) {
@@ -23,3 +23,4 @@ export const databaseconnection = async () => {
     process.exit(1);
   }
 };
+export { databaseconnection };

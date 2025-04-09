@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// Define the user schema
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -50,16 +51,21 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
+// Pre-save hook to hash the password before saving the user
+userSchema.pre("save", async function (next) { // we use name function because in this case we need to use this keyword //
+  if (!this.isModified("password")){
+    return next()
+  } ;
+  this.password = await bcrypt.hash(this.password, defaultSalt);
   next();
 });
+// Method to compare the password with the hashed password
 userSchema.methods.ispasswordMatch = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
+// Method to generate an access token
 userSchema.methods.generateAccessToken = async function () {
-  return jwt.sign(
+  return await  jwt.sign(
     {
       id: this._id,
       email: this.email,
@@ -72,8 +78,9 @@ userSchema.methods.generateAccessToken = async function () {
     }
   );
 };
+// Method to generate a refresh token
 userSchema.methods.generateRefereshToken = async function () {
-  return jwt.sign(
+  return await jwt.sign(
     {
       id: this._id,
     },
@@ -84,4 +91,5 @@ userSchema.methods.generateRefereshToken = async function () {
   );
 };
 
+// Export the User model
 export const User = mongoose.model("User", userSchema);
