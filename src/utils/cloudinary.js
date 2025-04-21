@@ -1,37 +1,41 @@
-
-// import the cloudinary library and the fs library
+// Import the Cloudinary library and the fs module
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+import fs from "node:fs";
 
-// configure the cloudinary library with the cloud name, api key, and api secret from the environment variables
+
+// Configure the Cloudinary library with the provided environment variables
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
- // define an async function to upload files to cloudinary
- const uploadfilesoncloudinary = async (localfilespath) => {
+// Define an asynchronous function to upload files to Cloudinary
+const uploadfilesoncloudinary = async (localfilespath) => {
   try {
-    // check if there are any files to upload
+    // Check if a file path is provided
     if (!localfilespath) {
-      // if there are no files, return a 400 status code with a message
-      return res.status(400).json({ message: "No files uploaded" });
+      throw new Error("No file path provided");
     }
-    // upload the files to cloudinary
+
+    // Upload the file to Cloudinary
     const response = await cloudinary.uploader.upload(localfilespath, {
       resource_type: "auto",
     });
-    // file has been uploaded successfully //
-    console.log("file has been uploaded successfully",response.url);
-    // return the response from cloudinary
+
+    // Log a success message and delete the temporary file
+    console.log("✅ Uploaded successfully:", response.secure_url);
+    fs.unlinkSync(localfilespath); // delete temp file
     return response;
   } catch (error) {
-    // if there is an error, remove the locally saved temporary files
-    fs.unlinkSync(localfilespath); /// removed the locally saved temporaray files
-    // return null
-    return null;
+    // Log an error message and delete the temporary file if it exists
+    console.error("❌ Cloudinary upload error:", error.message);
+    if (fs.existsSync(localfilespath)) {
+      fs.unlinkSync(localfilespath);
+    }
+    throw new Error("Failed to upload file to Cloudinary");
   }
 };
-// export the function
+
+// Export the uploadfilesoncloudinary function
 export { uploadfilesoncloudinary };

@@ -4,10 +4,13 @@ class ApiResponse {
     constructor(
         // Status code of the response
         statusCode,
-        // Data of the response
-        data,
-        // Message of the response, default is "Success"
+
+        // Message of the response, default is "Successful Task"
         message = "Success",
+
+        // Data of the response
+        data=null,
+
 
     ) {
         // Set the status code of the response

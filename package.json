@@ -5,7 +5,7 @@
   "main": "script.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/execution.db.index.js"
   },
   "keywords": [
     "javascript",
@@ -16,11 +16,11 @@
   "author": "MHUSSAIN_SHAIKH",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.7",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.6.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
@@ -29,5 +29,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhussainshaikh/NODE-JS-BACKEND-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mhussainshaikh/NODE-JS-BACKEND-/issues"
+  },
+  "homepage": "https://github.com/mhussainshaikh/NODE-JS-BACKEND-#readme"
 }

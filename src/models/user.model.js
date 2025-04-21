@@ -52,22 +52,25 @@ const userSchema = new mongoose.Schema(
 );
 
 // Pre-save hook to hash the password before saving the user
-userSchema.pre("save", async function (next) { // we use name function because in this case we need to use this keyword //
-  if (!this.isModified("password")){
-    return next()
-  } ;
-  this.password = await bcrypt.hash(this.password, defaultSalt);
-  next();
+userSchema.pre("save", async function (next) {
+  // we use name function because in this case we need to use this keyword //
+  if (!this.isModified("password")) {
+    return next();
+  }
+  const salt_rounds= process.env.SALT_ROUNDS || 10;
+  this.password = await bcrypt.hash(this.password,parseInt(salt_rounds)); // the 10 is default salt for hashing password//
+  next(); // we use parseInt for convert string into number //
 });
 // Method to compare the password with the hashed password
 userSchema.methods.ispasswordMatch = async function (password) {
+  // we use name function because in this case we need to use this keyword //
   return await bcrypt.compare(password, this.password);
 };
 // Method to generate an access token
 userSchema.methods.generateAccessToken = async function () {
-  return await  jwt.sign(
+  return jwt.sign(
     {
-      id: this._id,
+      _id: this._id,
       email: this.email,
       username: this.username,
       fullName: this.fullName,
@@ -80,9 +83,9 @@ userSchema.methods.generateAccessToken = async function () {
 };
 // Method to generate a refresh token
 userSchema.methods.generateRefereshToken = async function () {
-  return await jwt.sign(
+  return jwt.sign(
     {
-      id: this._id,
+      _id: this._id,
     },
     process.env.REFRESH_TOKEN_SECRET,
     {
@@ -92,4 +95,5 @@ userSchema.methods.generateRefereshToken = async function () {
 };
 
 // Export the User model
-export const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export { User };

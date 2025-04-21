@@ -1,31 +1,27 @@
-// this is try catch method ///
-// this is higher order function which takes a function as an argument and returns a new function
-// This function takes a function as an argument and returns an asynchronous function that takes three arguments: req, res, and next.
- const asyncHandler = (fn) => {  
- // This function is called when the asynchronous function is called.
- return  async (req, res, next) => {
+// This function takes a request handler as an argument and returns an async function
+const asyncHandler = (requestHandler) => {
+  // This async function takes three arguments: req, res, and next
+  return async (req, res, next) => {
     try {
-      // This line calls the function passed as an argument to asyncHandler.
-      await fn(req, res, next);
+      // The request handler is called with the three arguments
+      await requestHandler(req, res, next);
     } catch (err) {
-      // This line sets the status of the response to the error code or 500 if no error code is provided.
-      res.status(err.code || 500).json({
-        // This line sets the success property of the response to false and the message property to the error message.
+      // If an error is thrown, it is logged to the console
+      console.error("Async Handler Error:", err);
+
+      // The status code is determined by checking if the error has a statusCode property
+      const statusCode = typeof err.statusCode === "number" ? err.statusCode : 500;
+      // The message is determined by checking if the error has a message property
+      const message = err.message || "Internal Server Error";
+
+      // The response is sent with the status code, success property set to false, message, and error stack
+      res.status(statusCode).json({
         success: false,
-        message: err.message,
+        message,
+        error: err.stack,
       });
     }
   };
 };
 
-// This line exports the asyncHandler function so it can be used in other files.
 export { asyncHandler };
-// this is .then and catch method ///
-
-// const asyncHandler=(requestHandler)=>{
-// (req,res,next)=>{
-// Promise.resolve(requestHandler(req,res,next))
-// .catch((err)=>next(err))
-// }
-// }
-

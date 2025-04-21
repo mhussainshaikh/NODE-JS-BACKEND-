@@ -1,7 +1,5 @@
 //  this is the real world example of backend api ///
 
-// import dotenv from 'dotenv';
-// dotenv.config({ path: "../.env" });
 // import express from "express";
 
 // const port = process.env.PORT || 4000;
@@ -61,26 +59,25 @@
 //     });
 //   }
 // });
-// // Start the server
+// Start the server
 // app.listen(port, () => {
 //   console.log(`Server is running on http://localhost:${port}`);
 // });
 
 // this is the simple backend api ///
 
-// import dotenv from "dotenv";
-// import express from "express";
+import express from "express";
 
-// const app = express();
-// const port = process.env.PORT || 3000;
+const app = express();
+const port = process.env.PORT || 3000;
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
-// app.listen(port, () => {
-//   console.log(`Example app listening on http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Example app listening on http://localhost:${port}`);
+});
 
 // // we use async await  and fetch when backend api get data from external api (third party api)  or database //
 
